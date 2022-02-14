@@ -8,7 +8,7 @@ $dbConnection = (new DatabaseConnector())->getConnection();
 
 $statement = <<<EOS
     CREATE TABLE IF NOT EXISTS vinho (
-        id INT NOT NULL AUTO_INCREMENT,
+        id BIGINT NOT NULL AUTO_INCREMENT,
         nome VARCHAR(100) NOT NULL,
         tipo VARCHAR(100) NOT NULL,
         peso INTEGER NOT NULL,

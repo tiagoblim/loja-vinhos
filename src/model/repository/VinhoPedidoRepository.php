@@ -2,14 +2,9 @@
 namespace Src\Model\Repository;
 
 use Src\Model\Entity\Vinho;
-use Src\Model\Mapper\VinhoMapper;
+use Src\Model\Mapper\VinhoPedidoMapper;
 
 class VinhoPedidoRepository extends BaseRepository {
-
-    private function __construct()
-    {
-        $this->VinhoMapper = new VinhoMapper();
-    }
     
     public function findAll() : array
     {
@@ -43,7 +38,7 @@ class VinhoPedidoRepository extends BaseRepository {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array($id));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            return $this->getMapper()->arrayToObject($result);
+            return $this->getMapper()->arrayToObject($result[0]);
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }    
@@ -85,8 +80,8 @@ class VinhoPedidoRepository extends BaseRepository {
         }    
     }
 
-    protected function getMapper () : VinhoMapper
+    protected function getMapper () : VinhoPedidoMapper
     {
-        return new VinhoMapper();
+        return new VinhoPedidoMapper();
     }
 }

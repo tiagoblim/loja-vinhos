@@ -9,12 +9,14 @@ abstract class BaseController {
 
     protected $requestMethod;
     protected $params;
+    protected $uri;
     protected $response;
 
-    public function __construct(string $requestMethod, array $params)
+    public function __construct(string $requestMethod, array $uri, array $params)
     {
         $this->requestMethod = $requestMethod;
         $this->params = $params;
+        $this->uri = $uri;
         $this->response = new Response();
 
         $this->processRequest();
@@ -79,4 +81,8 @@ abstract class BaseController {
         return $this->response;
     }
 
+    protected function getPhpInput () : array
+    {
+        return (array) json_decode(file_get_contents('php://input'), TRUE);
+    }
 }

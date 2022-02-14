@@ -23,11 +23,7 @@ class FrontController {
         if ($arrayRoutesKey !== false)
             $controllerRoute = $this->routes[$arrayRoutesKey];
 
-        $controller = new $controllerRoute[1]($requestMethod, $params);
-        
-        // print_r($controllerRoute);
-        // print_r($uri);
-        // print_r($requestMethod);
-        // print_r($params);
+        $controller = new $controllerRoute[1]($requestMethod, $uri, $params);
+
     }
 }

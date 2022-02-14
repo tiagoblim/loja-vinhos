@@ -7,6 +7,12 @@ class Response {
 
     private $body;
 
+    function __construct()
+    {
+        $this->setStatusCodeHeader('HTTP/1.1 200 OK');
+        $this->setBody([]);
+    }
+
     function getStatusCodeHeader () : string
     {
         return $this->statusCodeHeader;
@@ -22,7 +28,7 @@ class Response {
         return $this->body;
     }
 
-    function setBody(array $body) : void
+    function setBody($body) : void
     {
         $this->body = json_encode($body);
     }

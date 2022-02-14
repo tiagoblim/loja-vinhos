@@ -2,7 +2,7 @@
 namespace Src\Model\Repository;
 
 use Src\Model\Entity\Vinho;
-use Src\Model\Mapper\VinhoPedidoMapper;
+use Src\Model\Mapper\VinhoMapper;
 
 class VinhoRepository extends BaseRepository {
     
@@ -38,7 +38,7 @@ class VinhoRepository extends BaseRepository {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array($id));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            return $this->getMapper()->arrayToObject($result);
+            return $this->getMapper()->arrayToObject($result[0]);
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }    
@@ -57,15 +57,41 @@ class VinhoRepository extends BaseRepository {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array(
                 'nome' => $vinho->getNome(),
-                'tipo'  => $vinho->getTipo(),
+                'tipo' => $vinho->getTipo(),
                 'peso' => $vinho->getPeso(),
             ));
+
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function update(Vinho $vinho) : void
+    {
+        $statement = "
+            UPDATE vinho
+            SET 
+                nome = :nome,
+                tipo = :tipo,
+                peso = :peso
+            WHERE id = :id;
+        ";
+
+        try {
+            $statement = $this->dbConnection()->prepare($statement);
+            $statement->execute(array(
+                'id'   => (int) $vinho->getId(),
+                'nome' => $vinho->getNome(),
+                'tipo' => $vinho->getTipo(),
+                'peso' => $vinho->getPeso(),
+            ));
+
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }    
     }
 
-    public function delete(Vinho $vinho) : void
+    public function delete(int $id) : void
     {
         $statement = "
             DELETE FROM vinho
@@ -74,14 +100,14 @@ class VinhoRepository extends BaseRepository {
 
         try {
             $statement = $this->dbConnection()->prepare($statement);
-            $statement->execute(array('id' => $vinho->getId()));
+            $statement->execute(array('id' => $id));
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }    
     }
 
-    protected function getMapper () : VinhoPedidoMapper
+    protected function getMapper () : VinhoMapper
     {
-        return new VinhoPedidoMapper();
+        return new VinhoMapper();
     }
 }

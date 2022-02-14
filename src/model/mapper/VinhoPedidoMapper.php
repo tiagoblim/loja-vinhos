@@ -5,7 +5,7 @@ use Src\Model\Entity\Vinho;
 
 class VinhoPedidoMapper extends BaseMapper {
     
-    public static function arrayToObject (array $vinhoArray) : Vinho
+    public function arrayToObject (array $vinhoArray) : Vinho
     {
         $vinho = new Vinho();
 
@@ -24,7 +24,7 @@ class VinhoPedidoMapper extends BaseMapper {
         return $vinho;
     }
 
-    public static function arrayToObjectList (array $vinhoListArray) : array
+    public function arrayToObjectList (array $vinhoListArray) : array
     {
         $vinhoList = [];
 
