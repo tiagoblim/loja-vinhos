@@ -1,11 +1,13 @@
 <?php
 namespace Src\Model\Mapper;
 
-use Src\Model\Entity\BaseEntity;
-
 abstract class BaseMapper {
 
-    public abstract function arrayToObject (array $Array) : BaseEntity;
+    public abstract function arrayToObject (array $Array);
 
     public abstract function arrayToObjectList (array $listArray) : array;
+
+    public abstract function objectToArray ($itemObject) : array;
+
+    public abstract function objectListToArray (array $itemObjectList) : array;
 }

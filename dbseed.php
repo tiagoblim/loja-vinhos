@@ -7,7 +7,7 @@ use Src\System\DatabaseConnector;
 $dbConnection = (new DatabaseConnector())->getConnection();
 
 $statement = <<<EOS
-    CREATE TABLE IF NOT EXISTS vinho (
+    CREATE TABLE IF NOT EXISTS item (
         id BIGINT NOT NULL AUTO_INCREMENT,
         nome VARCHAR(100) NOT NULL,
         tipo VARCHAR(100) NOT NULL,
@@ -15,7 +15,7 @@ $statement = <<<EOS
         PRIMARY KEY (id)
     ) ENGINE=INNODB;
 
-    INSERT INTO vinho
+    INSERT INTO item
         (id, nome, tipo, peso)
     VALUES
         (1, 'Vinho do Porto', 'Tannat', 400),

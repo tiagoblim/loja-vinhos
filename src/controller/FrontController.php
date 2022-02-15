@@ -3,11 +3,11 @@ namespace Src\Controller;
 
 class FrontController {
 
-    private $indexRoute = "vinho";
+    private $indexRoute = "item";
 
     private $routes = [
-        ["vinho", "Src\Controller\Http\VinhoController"],
-        ["vinho-pedido", "Src\Controller\Http\VinhoPedidoController"]
+        ["item", "Src\Controller\Http\ItemController"],
+        ["item-pedido", "Src\Controller\Http\ItemPedidoController"]
     ];
 
     public function __construct($uri, $requestMethod, $params)

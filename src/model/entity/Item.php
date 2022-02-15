@@ -1,7 +1,7 @@
 <?php
 namespace Src\Model\Entity;
 
-class Vinho extends BaseEntity{
+class Item extends BaseEntity {
 
     private $id;
     private $nome;

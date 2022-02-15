@@ -3,11 +3,11 @@ namespace Src\Controller\Http;
 
 use Src\Controller\BaseController;
 use Src\Controller\Response;
-use Src\Model\Repository\VinhoRepository;
-use Src\Model\Mapper\VinhoMapper;
-use Src\Model\Entity\Vinho;
+use Src\Model\Repository\ItemRepository;
+use Src\Model\Mapper\ItemMapper;
+use Src\Model\Entity\Item;
 
-class VinhoController extends BaseController {
+class ItemController extends BaseController {
 
     protected function get () : Response
     {
@@ -20,19 +20,19 @@ class VinhoController extends BaseController {
     protected function post () : Response
     {
         $input = $this->getPhpInput();
-        $vinho = new Vinho;
-        $vinho->define(0, $input['nome'], $input['tipo'], $input['peso']);
+        $item = new Item();
+        $item->define(0, $input['nome'], $input['tipo'], $input['peso']);
     
-        return $this->insert($vinho);
+        return $this->insert($item);
     }
 
     protected function put () : Response
     {
         $input = $this->getPhpInput();
-        $vinho = new Vinho;
-        $vinho->define($input['id'], $input['nome'], $input['tipo'], $input['peso']);
+        $item = new Item();
+        $item->define($input['id'], $input['nome'], $input['tipo'], $input['peso']);
 
-        return $this->update($vinho);
+        return $this->update($item);
     }
 
     protected function delete () : Response
@@ -46,33 +46,33 @@ class VinhoController extends BaseController {
     private function findAll () : Response
     {
         try {
-            $vinhoList = $this->getRepository()->findAll();
+            $itemList = $this->getRepository()->findAll();
         }
         catch (\PDOException $e) {
             return $this->unprocessableEntityResponse();
         }
 
-        $this->response->setBody($this->getMapper()->objectListToArray($vinhoList));
+        $this->response->setBody($this->getMapper()->objectListToArray($itemList));
         return $this->response;
     }
 
     private function findById (int $id) : Response
     {
         try {
-            $vinhoList = $this->getRepository()->findById($id);
+            $itemList = $this->getRepository()->findById($id);
         }
         catch (\PDOException $e) {
             return $this->unprocessableEntityResponse();
         }
 
-        $this->response->setBody($this->getMapper()->objectToArray($vinhoList));
+        $this->response->setBody($this->getMapper()->objectToArray($itemList));
         return $this->response;
     }
 
-    private function insert (Vinho $vinho) : Response
+    private function insert (Item $item) : Response
     {
         try {
-            $this->getRepository()->insert($vinho);
+            $this->getRepository()->insert($item);
         }
         catch (\PDOException $e) {
             return $this->unprocessableEntityResponse();
@@ -82,10 +82,10 @@ class VinhoController extends BaseController {
         return $this->response;
     }
 
-    private function update (Vinho $vinho) : Response
+    private function update (Item $item) : Response
     {
         try {
-            $this->getRepository()->update($vinho);
+            $this->getRepository()->update($item);
         }
         catch (\PDOException $e) {
             return $this->unprocessableEntityResponse();
@@ -106,14 +106,14 @@ class VinhoController extends BaseController {
         return $this->response;
     }
 
-    function getRepository () : VinhoRepository
+    function getRepository () : ItemRepository
     {
-        return new VinhoRepository();
+        return new ItemRepository();
     }
 
-    function getMapper () : VinhoMapper
+    function getMapper () : ItemMapper
     {
-        return new VinhoMapper();
+        return new ItemMapper();
     }
 
 }

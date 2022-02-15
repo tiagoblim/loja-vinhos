@@ -1,10 +1,10 @@
 <?php
 namespace Src\Model\Repository;
 
-use Src\Model\Entity\Vinho;
-use Src\Model\Mapper\VinhoMapper;
+use Src\Model\Entity\Item;
+use Src\Model\Mapper\ItemMapper;
 
-class VinhoRepository extends BaseRepository {
+class ItemRepository extends BaseRepository {
     
     public function findAll() : array
     {
@@ -12,7 +12,7 @@ class VinhoRepository extends BaseRepository {
             SELECT 
                 id, nome, tipo, peso
             FROM
-                vinho;
+                item;
         ";
 
         try {
@@ -24,13 +24,13 @@ class VinhoRepository extends BaseRepository {
         }
     }
 
-    public function findById($id) : Vinho
+    public function findById($id) : Item
     {
         $statement = "
             SELECT 
                 id, nome, tipo, peso
             FROM
-                vinho
+                item
             WHERE id = ?;
         ";
 
@@ -44,10 +44,10 @@ class VinhoRepository extends BaseRepository {
         }    
     }
 
-    public function insert(Vinho $vinho) : void
+    public function insert(Item $item) : void
     {
         $statement = "
-            INSERT INTO vinho 
+            INSERT INTO item 
                 (nome, tipo, peso)
             VALUES
                 (:nome, :tipo, :peso);
@@ -56,9 +56,9 @@ class VinhoRepository extends BaseRepository {
         try {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array(
-                'nome' => $vinho->getNome(),
-                'tipo' => $vinho->getTipo(),
-                'peso' => $vinho->getPeso(),
+                'nome' => $item->getNome(),
+                'tipo' => $item->getTipo(),
+                'peso' => $item->getPeso(),
             ));
 
         } catch (\PDOException $e) {
@@ -66,10 +66,10 @@ class VinhoRepository extends BaseRepository {
         }
     }
 
-    public function update(Vinho $vinho) : void
+    public function update(Item $item) : void
     {
         $statement = "
-            UPDATE vinho
+            UPDATE item
             SET 
                 nome = :nome,
                 tipo = :tipo,
@@ -80,10 +80,10 @@ class VinhoRepository extends BaseRepository {
         try {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array(
-                'id'   => (int) $vinho->getId(),
-                'nome' => $vinho->getNome(),
-                'tipo' => $vinho->getTipo(),
-                'peso' => $vinho->getPeso(),
+                'id'   => (int) $item->getId(),
+                'nome' => $item->getNome(),
+                'tipo' => $item->getTipo(),
+                'peso' => $item->getPeso(),
             ));
 
         } catch (\PDOException $e) {
@@ -94,7 +94,7 @@ class VinhoRepository extends BaseRepository {
     public function delete(int $id) : void
     {
         $statement = "
-            DELETE FROM vinho
+            DELETE FROM item
             WHERE id = :id;
         ";
 
@@ -106,8 +106,8 @@ class VinhoRepository extends BaseRepository {
         }    
     }
 
-    protected function getMapper () : VinhoMapper
+    protected function getMapper () : ItemMapper
     {
-        return new VinhoMapper();
+        return new ItemMapper();
     }
 }
