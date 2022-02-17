@@ -7,13 +7,15 @@ class Item extends BaseEntity {
     private $nome;
     private $tipo;
     private $peso;
+    private $preco;
 
-    function define(int $id, string $nome, string $tipo, float $peso) : void
+    function define(int $id, string $nome, string $tipo, float $peso, float $preco) : void
     {
         $this->id = $id;
         $this->nome = $nome;
         $this->tipo = $tipo;
         $this->peso = $peso;
+        $this->preco = $preco;
     }
 
     function getId () : int
@@ -54,5 +56,15 @@ class Item extends BaseEntity {
     function setPeso(float $peso) : void
     {
         $this->peso = $peso;
+    }
+
+    function getPreco () : float
+    {
+        return $this->preco;
+    }
+
+    function setPreco(float $preco) : void
+    {
+        $this->preco = $preco;
     }
 }

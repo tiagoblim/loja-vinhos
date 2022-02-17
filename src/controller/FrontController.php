@@ -7,7 +7,8 @@ class FrontController {
 
     private $routes = [
         ["item", "Src\Controller\Http\ItemController"],
-        ["item-pedido", "Src\Controller\Http\ItemPedidoController"]
+        ["item-pedido", "Src\Controller\Http\ItemPedidoController"],
+        ["pedido", "Src\Controller\Http\PedidoController"]
     ];
 
     public function __construct($uri, $requestMethod, $params)

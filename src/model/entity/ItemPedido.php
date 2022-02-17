@@ -4,15 +4,15 @@ namespace Src\Model\Entity;
 class ItemPedido extends BaseEntity {
 
     private $id;
-    private $item;
-    private $pedido;
+    private $itemId;
+    private $pedidoId;
     private $quantidade;
 
-    function define(int $id, Item $item, Pedido $pedido, int $quantidade) : void
+    function define(int $id, int $itemId, int $pedidoId, int $quantidade) : void
     {
         $this->id         = $id;
-        $this->item       = $item;
-        $this->pedido     = $pedido;
+        $this->itemId     = $itemId;
+        $this->pedidoId   = $pedidoId;
         $this->quantidade = $quantidade;
     }
 
@@ -26,24 +26,24 @@ class ItemPedido extends BaseEntity {
         $this->id = $id;
     }
 
-    function getItem () : Item
+    function getItemId () : int
     {
-        return $this->item;
+        return $this->itemId;
     }
 
-    function setItem(Item $item) : void
+    function setItemId(int $itemId) : void
     {
-        $this->item = $item;
+        $this->itemId = $itemId;
     }
 
-    function getItemPedidoId () : Pedido
+    function getPedidoId () : int
     {
-        return $this->pedido;
+        return $this->pedidoId;
     }
 
-    function setItemPedidoId(Pedido $pedido) : void
+    function setPedidoId(int $pedidoId) : void
     {
-        $this->pedido = $pedido;
+        $this->pedidoId = $pedidoId;
     }
 
     function getQuantidade () : int

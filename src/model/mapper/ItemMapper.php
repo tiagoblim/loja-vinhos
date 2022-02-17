@@ -14,7 +14,8 @@ class ItemMapper extends BaseMapper {
                 $itemArray['id'],
                 $itemArray['nome'],
                 $itemArray['tipo'],
-                $itemArray['peso']
+                $itemArray['peso'],
+                $itemArray['preco']
             );
         }
         catch (\Exception $e) {            
@@ -47,9 +48,9 @@ class ItemMapper extends BaseMapper {
             "id"   => $itemObject->getId(),
             "nome" => $itemObject->getNome(),
             "tipo" => $itemObject->getTipo(),
-            "peso" => $itemObject->getPeso()
+            "peso" => $itemObject->getPeso(),
+            "preco" => $itemObject->getPreco()
         ];
-        return (array) $itemObject;
     }
 
     public function objectListToArray (array $itemObjectList) : array

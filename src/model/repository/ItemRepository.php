@@ -10,7 +10,7 @@ class ItemRepository extends BaseRepository {
     {
         $statement = "
             SELECT 
-                id, nome, tipo, peso
+                id, nome, tipo, peso, preco
             FROM
                 item;
         ";
@@ -28,7 +28,7 @@ class ItemRepository extends BaseRepository {
     {
         $statement = "
             SELECT 
-                id, nome, tipo, peso
+                id, nome, tipo, peso, preco
             FROM
                 item
             WHERE id = ?;
@@ -48,17 +48,18 @@ class ItemRepository extends BaseRepository {
     {
         $statement = "
             INSERT INTO item 
-                (nome, tipo, peso)
+                (nome, tipo, peso, preco)
             VALUES
-                (:nome, :tipo, :peso);
+                (:nome, :tipo, :peso, :preco);
         ";
 
         try {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array(
-                'nome' => $item->getNome(),
-                'tipo' => $item->getTipo(),
-                'peso' => $item->getPeso(),
+                'nome'  => $item->getNome(),
+                'tipo'  => $item->getTipo(),
+                'peso'  => $item->getPeso(),
+                'preco' => $item->getPreco(),
             ));
 
         } catch (\PDOException $e) {
@@ -71,19 +72,21 @@ class ItemRepository extends BaseRepository {
         $statement = "
             UPDATE item
             SET 
-                nome = :nome,
-                tipo = :tipo,
-                peso = :peso
+                nome  = :nome,
+                tipo  = :tipo,
+                peso  = :peso,
+                preco = :preco
             WHERE id = :id;
         ";
 
         try {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array(
-                'id'   => (int) $item->getId(),
-                'nome' => $item->getNome(),
-                'tipo' => $item->getTipo(),
-                'peso' => $item->getPeso(),
+                'id'    => (int) $item->getId(),
+                'nome'  => $item->getNome(),
+                'tipo'  => $item->getTipo(),
+                'peso'  => $item->getPeso(),
+                'preco' => $item->getPreco(),
             ));
 
         } catch (\PDOException $e) {

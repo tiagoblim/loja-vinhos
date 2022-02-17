@@ -21,7 +21,7 @@ class ItemController extends BaseController {
     {
         $input = $this->getPhpInput();
         $item = new Item();
-        $item->define(0, $input['nome'], $input['tipo'], $input['peso']);
+        $item->define(0, $input['nome'], $input['tipo'], $input['peso'], $input['preco']);
     
         return $this->insert($item);
     }
@@ -30,7 +30,7 @@ class ItemController extends BaseController {
     {
         $input = $this->getPhpInput();
         $item = new Item();
-        $item->define($input['id'], $input['nome'], $input['tipo'], $input['peso']);
+        $item->define($input['id'], $input['nome'], $input['tipo'], $input['peso'], $input['preco']);
 
         return $this->update($item);
     }
