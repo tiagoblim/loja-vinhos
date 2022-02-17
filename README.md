@@ -30,7 +30,7 @@ Então executar o arquivo /dbseed.php para criar a extrutura de tabelas e alguns
 
 ## Como Usar
 
-Dentro do repositório existe o arquivo */endpoints.postman_collection.json* que pode ser importado no Postman 2.1+ com todos os endpoints do projeto configurados. Mas abaixo segue um detalhamento deles Método HTTP, URI e corpo a ser enviado como json quando necessário:
+Dentro do repositório existe o arquivo */endpoints.postman_collection.json* que pode ser importado no Postman 2.1+ com todos os endpoints do projeto configurados. Mas abaixo segue um detalhamento deles com *Método HTTP, URI e corpo* a ser enviado como json quando necessário:
 
 > GET http://localhost/loja/item
 ```
