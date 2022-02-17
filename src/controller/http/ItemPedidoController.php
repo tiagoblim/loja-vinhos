@@ -4,8 +4,10 @@ namespace Src\Controller\Http;
 use Src\Controller\BaseController;
 use Src\Controller\Response;
 use Src\Model\Repository\ItemPedidoRepository;
+use Src\Model\Repository\PedidoRepository;
 use Src\Model\Mapper\ItemPedidoMapper;
 use Src\Model\Entity\ItemPedido;
+use Src\Service\PedidoService;
 
 class ItemPedidoController extends BaseController {
 
@@ -73,6 +75,8 @@ class ItemPedidoController extends BaseController {
     {
         try {
             $this->getRepository()->insert($itemPedido);
+            $pedido = $this->getPedidoRepository()->findById($itemPedido->getPedidoId());
+            $this->getPedidoService()->update($pedido);
         }
         catch (\PDOException $e) {
             return $this->unprocessableEntityResponse();
@@ -86,6 +90,8 @@ class ItemPedidoController extends BaseController {
     {
         try {
             $this->getRepository()->update($itemPedido);
+            $pedido = $this->getPedidoRepository()->findById($itemPedido->getPedidoId());
+            $this->getPedidoService()->update($pedido);
         }
         catch (\PDOException $e) {
             return $this->unprocessableEntityResponse();
@@ -98,6 +104,8 @@ class ItemPedidoController extends BaseController {
     {
         try {
             $this->getRepository()->delete($id);
+            $pedido = $this->getPedidoRepository()->findById($id);
+            $this->getPedidoService()->update($pedido);
         }
         catch (\PDOException $e) {
             return $this->unprocessableEntityResponse();
@@ -111,9 +119,19 @@ class ItemPedidoController extends BaseController {
         return new ItemPedidoRepository();
     }
 
+    function getPedidoRepository () : PedidoRepository
+    {
+        return new PedidoRepository();
+    }
+
     function getMapper () : ItemPedidoMapper
     {
         return new ItemPedidoMapper();
+    }
+
+    function getPedidoService () : PedidoService
+    {
+        return new PedidoService();
     }
 
 }

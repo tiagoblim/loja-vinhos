@@ -5,14 +5,16 @@ class Pedido extends BaseEntity {
 
     private $id;
     private $valor;
+    private $peso;
     private $frete;
     private $distancia_entrega;
     private $itensPedidoId; //Apenas leitura
 
-    function define(int $id, float $valor, float $frete, float $distancia_entrega, array $itensPedidoId = []) : void
+    function define(int $id, float $valor, float $peso, float $frete, float $distancia_entrega, array $itensPedidoId = []) : void
     {
         $this->id                = $id;
         $this->valor             = $valor;
+        $this->peso              = $peso;
         $this->frete             = $frete;
         $this->distancia_entrega = $distancia_entrega;
         $this->itensPedidoId     = $itensPedidoId;
@@ -36,6 +38,16 @@ class Pedido extends BaseEntity {
     function setValor(int $valor) : void
     {
         $this->valor = $valor;
+    }
+
+    function getPeso () : float
+    {
+        return $this->peso;
+    }
+
+    function setPeso(int $peso) : void
+    {
+        $this->peso = $peso;
     }
     
     function getFrete () : float

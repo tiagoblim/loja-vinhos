@@ -10,7 +10,7 @@ class PedidoRepository extends BaseRepository {
     {
         $statement = "
         SELECT 
-            pedido.id, pedido.valor, pedido.frete, distancia_entrega,
+            pedido.id, pedido.valor, pedido.peso, pedido.frete, distancia_entrega,
             ( 
                 SELECT
                     GROUP_CONCAT(item_pedido.id)
@@ -38,7 +38,7 @@ class PedidoRepository extends BaseRepository {
     {
         $statement = "
             SELECT 
-                id, valor, frete, distancia_entrega,
+                pedido.id, pedido.valor, pedido.frete, pedido.peso, pedido.distancia_entrega,
                 ( 
                     SELECT
                         GROUP_CONCAT(item_pedido.id)
@@ -68,15 +68,16 @@ class PedidoRepository extends BaseRepository {
     {
         $statement = "
             INSERT INTO pedido 
-                (valor, frete, distancia_entrega)
+                (valor, peso, frete, distancia_entrega)
             VALUES
-                (:valor, :frete, :distancia_entrega);
+                (:valor, :peso, :frete, :distancia_entrega);
         ";
 
         try {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array(
                 'valor'             => $pedido->getValor(),
+                'peso'              => $pedido->getPeso(),
                 'frete'             => $pedido->getFrete(),
                 'distancia_entrega' => $pedido->getDistanciaEntrega(),
             ));
@@ -92,6 +93,7 @@ class PedidoRepository extends BaseRepository {
             UPDATE pedido
             SET 
                 valor             = :valor,
+                peso              = :peso,
                 frete             = :frete,
                 distancia_entrega = :distancia_entrega
             WHERE id = :id;
@@ -100,9 +102,11 @@ class PedidoRepository extends BaseRepository {
         try {
             $statement = $this->dbConnection()->prepare($statement);
             $statement->execute(array(
-                'id'   => (int) $pedido->getId(),
-                'valor' => $pedido->getValor(),
-                'frete' => $pedido->getFrete(),
+                'id'                => (int) $pedido->getId(),
+                'valor'             => $pedido->getValor(),
+                'peso'              => $pedido->getPeso(),
+                'frete'             => $pedido->getFrete(),
+                'distancia_entrega' => $pedido->getDistanciaEntrega(),
             ));
 
         } catch (\PDOException $e) {

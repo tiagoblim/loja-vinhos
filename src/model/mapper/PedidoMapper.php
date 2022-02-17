@@ -8,14 +8,21 @@ class PedidoMapper extends BaseMapper {
     public function arrayToObject (array $pedidoArray) : Pedido
     {
         $pedido = new Pedido();
+        $itensPedidoId = explode(",", $pedidoArray['itensPedidoId']);
+
+        if (strlen($pedidoArray['itensPedidoId']) > 0)
+            $itensPedidoId = array_map('intval', $itensPedidoId);
+        else
+            $itensPedidoId = [];
 
         try {
             $pedido->define (
                 $pedidoArray['id'],
                 $pedidoArray['valor'],
+                $pedidoArray['peso'],
                 $pedidoArray['frete'],
                 $pedidoArray['distancia_entrega'],
-                explode(",", $pedidoArray['itensPedidoId'])
+                $itensPedidoId
             );
         }
         catch (\Exception $e) {            
@@ -47,6 +54,7 @@ class PedidoMapper extends BaseMapper {
         return [
             "id"                => $pedidoObject->getId(),
             "valor"             => $pedidoObject->getValor(),
+            "peso"              => $pedidoObject->getPeso(),
             "frete"             => $pedidoObject->getFrete(),
             "distancia_entrega" => $pedidoObject->getDistanciaEntrega(),
             "itensPedidoId"     => $pedidoObject->getItensPedidoId()

@@ -110,4 +110,5 @@ class ItemPedidoRepository extends BaseRepository {
     {
         return new ItemPedidoMapper();
     }
+    
 }

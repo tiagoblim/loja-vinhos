@@ -22,7 +22,7 @@ class PedidoController extends BaseController {
     {
         $input = $this->getPhpInput();
         $pedido = new Pedido();
-        $pedido->define(0, $input['valor'], $input['frete'], $input['distancia_entrega']);
+        $pedido->define(0, 0, 0, 0, $input['distancia_entrega']);
     
         return $this->insert($pedido);
     }
@@ -31,7 +31,7 @@ class PedidoController extends BaseController {
     {
         $input = $this->getPhpInput();
         $pedido = new Pedido();
-        $pedido->define($input['id'], $input['valor'], $input['frete'], $input['distancia_entrega']);
+        $pedido->define($input['id'], 0, 0, 0, $input['distancia_entrega']);
 
         return $this->update($pedido);
     }

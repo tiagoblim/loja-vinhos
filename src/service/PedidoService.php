@@ -14,12 +14,16 @@ class PedidoService extends BaseService {
     public function insert (Pedido $pedido) : void
     {
         $pedido->setFrete( $this->calcularFrete($pedido) );
+        $pedido->setPeso( $this->calcularPeso($pedido) );
+        $pedido->setValor( $this->calcularValor ($pedido) + $pedido->getFrete());
         $this->getRepository()->insert($pedido);
     }
 
     public function update (Pedido $pedido) : void
     {
         $pedido->setFrete( $this->calcularFrete($pedido) );
+        $pedido->setPeso( $this->calcularPeso($pedido) );
+        $pedido->setValor( $this->calcularValor ($pedido) + $pedido->getFrete());
         $this->getRepository()->update($pedido);
     }
 
@@ -43,13 +47,26 @@ class PedidoService extends BaseService {
     {
         $peso = 0;
 
-        foreach ($pedido->itensPedidoId as $itemPedidoId) {
+        foreach ($pedido->getItensPedidoId() as $itemPedidoId) {
             $itemPedido = $this->getItemPedidoRepository()->findById($itemPedidoId);
-            $item = $this->getItemRepository()->findById($itemPedido->getId());
-            $peso += $item->getPeso();
+            $item = $this->getItemRepository()->findById($itemPedido->getItemId());
+            $peso += ($item->getPeso() * $itemPedido->getQuantidade());
         }
 
         return $peso;
+    }
+
+    public function calcularValor (Pedido $pedido) : float
+    {
+        $valor = 0;
+
+        foreach ($pedido->getItensPedidoId() as $itemPedidoId) {
+            $itemPedido = $this->getItemPedidoRepository()->findById($itemPedidoId);
+            $item = $this->getItemRepository()->findById($itemPedido->getItemId());
+            $valor += $item->getPreco();
+        }
+
+        return $valor;
     }
 
     protected function getRepository () : PedidoRepository
